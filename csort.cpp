@@ -1,15 +1,22 @@
-// csort.cpp : Defines the functions for the static library.
-//
+//============================================================================
+// csort.cpp
+// 	Author      : jtpeller
+// 	Date		: December 22, 2021
+// 	Description : implementation for functions in csort.h
+//============================================================================
+
 
 #include "pch.h"
 #include "csort.h"
 #include "framework.h"
 
-namespace csort {
+namespace csort
+{
 	// ### SORT CLASS -- PUBLIC FUNCTIONS
 
 	// bubble sort
-	void sort::bubble(int* arr, int n) {
+	void sort::bubble(int* arr, int n)
+	{
 		int temp;
 
 		for (int i = 0; i < n; i++) {
@@ -24,24 +31,22 @@ namespace csort {
 	}
 
 	// counting sort
-	void sort::counting(int* a, int n) {
+	void sort::counting(int* a, int n)
+	{
 		int max = utils::max(a, n);
 		int* counts = new int[max + 1];
 
 		// init counts
-		for (int i = 0; i < max + 1; i++) {
+		for (int i = 0; i < max + 1; i++)
 			counts[i] = 0;
-		}
 		
 		// generate counts
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++)
 			counts[a[i]]++;
-		}
 
 		// add previous to current
-		for (int i = 1; i < max + 1; i++) {
+		for (int i = 1; i < max + 1; i++)
 			counts[i] += counts[i - 1];
-		}
 
 		// generate final array
 		int* fin = utils::copy(a, n);
@@ -58,11 +63,12 @@ namespace csort {
 	}
 
 	// insertion sort
-	void sort::insertion(int* a, int n) {
-		for (int i = 1; i < n; i++) {
+	void sort::insertion(int* a, int n)
+	{
+		for (int i = 1; i < n; i++) 		{
 			int key = a[i];
 			int j = i - 1;
-			while (j >= 0 && a[j] > key) {
+			while (j >= 0 && a[j] > key) 			{
 				a[j + 1] = a[j];
 				j--;
 			}
@@ -71,19 +77,20 @@ namespace csort {
 	}
 
 	// quicksort, with chosen pivot
-	void sort::quicksort(int* a, int n) {
+	void sort::quicksort(int* a, int n)
+	{
 		return sort::quick(a, 0, n - 1);
 	}
 
 	// selection sort
 	void sort::selection(int* a, int n) {
 		for (int i = 0; i < n; i++) {
+			// compute min index
 			int minidx = i;
-			for (int j = i; j < n; j++) {
-				if (a[j] < a[minidx]) {
+			for (int j = i; j < n; j++)
+				if (a[j] < a[minidx])
 					minidx = j;
-				}
-			}
+
 			// swap
 			int temp = a[i];
 			a[i] = a[minidx];
@@ -94,7 +101,8 @@ namespace csort {
 	// ##### SORT CLASS -- PRIVATE METHODS
 
 	// helper to implement the recurrence for quicksort
-	void sort::quick(int* a, int l, int r) {
+	void sort::quick(int* a, int l, int r)
+	{
 		if (l < r) {
 			int pivot = sort::partition(a, l, r);
 			quick(a, l, pivot - 1);
@@ -103,12 +111,12 @@ namespace csort {
 	}
 
 	// computes the partition
-	int sort::partition(int* a, int l, int r) {
+	int sort::partition(int* a, int l, int r)
+	{
 		while (l < r) {
 			// adjust right
-			while (l < r && a[l] <= a[r]) {
+			while (l < r && a[l] <= a[r])
 				r--;
-			}
 			if (l < r) {
 				// swap elements at l & r
 				int temp = a[l];
@@ -117,9 +125,9 @@ namespace csort {
 			}
 
 			// adjust left
-			while (l < r && a[l] <= a[r]) {
+			while (l < r && a[l] <= a[r])
 				l++;
-			}
+
 			if (l < r) {
 				// swap again
 				int temp = a[l];
@@ -135,32 +143,30 @@ namespace csort {
 	// ### utils class definitions
 
 	// finds the max of an array
-	int utils::max(int* a, int n) {
+	int utils::max(int* a, int n)
+	{
 		int max = a[0];
-		for (int i = 1; i < n; i++) {
-			if (max < a[i]) {
+		for (int i = 1; i < n; i++)
+			if (max < a[i])
 				max = a[i];
-			}
-		}
 		return max;
 	}
 
 	// checks an array. true if sorted. false otherwise.
-	bool utils::is_sorted(int* a, int n) {
-		for (int i = 0; i < n - 1; i++) {
-			if (a[i] > a[i + 1]) {
+	bool utils::is_sorted(int* a, int n)
+	{
+		for (int i = 0; i < n - 1; i++)
+			if (a[i] > a[i + 1])
 				return false;
-			}
-		}
 		return true;
 	}
 
 	// performs a deep copy of the array
-	int* utils::copy(int* a, int n) {
+	int* utils::copy(int* a, int n)
+	{
 		int* b = new int[n];
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++)
 			b[i] = a[i];
-		}
 		return b;
 	}
 

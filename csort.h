@@ -1,6 +1,15 @@
+//============================================================================
+// csort.h
+// 	Author      : jtpeller
+// 	Date		: December 22, 2021
+// 	Description : csort header file; contains namespace & class declarations.
+//============================================================================
+
+
 #pragma once
 
-namespace csort {
+namespace csort
+{
 	// includes various helper functions
 	class utils {
 	public:
