@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "csort", "csort.vcxproj", "{F39003F5-9E07-4608-ABA4-E547B3AF97C8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sorttest", "..\sorttest\sorttest.vcxproj", "{B4B565D8-E6EE-49E2-8523-F3D08551A4AA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "csort_test", "..\csort_test\csort_test.vcxproj", "{B4B565D8-E6EE-49E2-8523-F3D08551A4AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
