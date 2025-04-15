@@ -1,16 +1,19 @@
 # csort
 
-## What
+Static library built in C/C++ that I built to get re-acquainted with the language.
 
-Static library I'm building to get re-acquainted with C/C++. 
-Created with Visual Studio 2022.
+- [csort](#csort)
+  - [Purpose](#purpose)
+  - [Important notes](#important-notes)
 
-## How
+## Purpose
+
+This is a library of five sorting algorithms meant moreso to get used to working with the language since it had been a long time since I worked with it.
 
 I've got a repository [here](https://github.com/jtpeller/csort_test) that uses this library. Similar to my gosort repository, it measures the running times of the various sort functions.
 
 ## Important notes
 
-I'm getting re-acquainted with C/C++, so this code probably has a few bad practices.
-Also, I've never built a library before, so that's probably got some bad practices as well.
-These will hopefully be fixed over time.
+There are likely bad practices in this library, since I'm both getting reacquainted with C/C++, and I've never built a library before.
+
+These may be fixed over time, or maybe not.

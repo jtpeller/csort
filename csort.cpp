@@ -10,164 +10,154 @@
 #include "csort.h"
 #include "framework.h"
 
-namespace csort
-{
-	// ### SORT CLASS -- PUBLIC FUNCTIONS
+namespace csort {
+    // ### SORT CLASS -- PUBLIC FUNCTIONS
 
-	// bubble sort
-	void sort::bubble(int* arr, int n)
-	{
-		int temp;
+    // bubble sort
+    void sort::bubble(int* arr, int n) {
+        int temp;
 
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n - i - 1; j++) {
-				if (arr[j] > arr[j + 1]) {
-					temp = arr[j];
-					arr[j] = arr[j + 1];
-					arr[j + 1] = temp;
-				}
-			}
-		}
-	}
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
 
-	// counting sort
-	void sort::counting(int* a, int n)
-	{
-		int max = utils::max(a, n);
-		int* counts = new int[max + 1];
+    // counting sort
+    void sort::counting(int* a, int n) {
+        int max = utils::max(a, n);
+        int* counts = new int[max + 1];
 
-		// init counts
-		for (int i = 0; i < max + 1; i++)
-			counts[i] = 0;
-		
-		// generate counts
-		for (int i = 0; i < n; i++)
-			counts[a[i]]++;
+        // init counts
+        for (int i = 0; i < max + 1; i++)
+            counts[i] = 0;
 
-		// add previous to current
-		for (int i = 1; i < max + 1; i++)
-			counts[i] += counts[i - 1];
+        // generate counts
+        for (int i = 0; i < n; i++)
+            counts[a[i]]++;
 
-		// generate final array
-		int* fin = utils::copy(a, n);
-		for (int i = 0; i < n; i++) {
-			int v = fin[i];
-			int p = counts[v] - 1;
+        // add previous to current
+        for (int i = 1; i < max + 1; i++)
+            counts[i] += counts[i - 1];
 
-			a[p] = v;
-			counts[v]--;
-		}
+        // generate final array
+        int* fin = utils::copy(a, n);
+        for (int i = 0; i < n; i++) {
+            int v = fin[i];
+            int p = counts[v] - 1;
 
-		// clean up
-		delete[] counts;
-	}
+            a[p] = v;
+            counts[v]--;
+        }
 
-	// insertion sort
-	void sort::insertion(int* a, int n)
-	{
-		for (int i = 1; i < n; i++) 		{
-			int key = a[i];
-			int j = i - 1;
-			while (j >= 0 && a[j] > key) 			{
-				a[j + 1] = a[j];
-				j--;
-			}
-			a[j + 1] = key;
-		}
-	}
+        // clean up
+        delete[] counts;
+    }
 
-	// quicksort, with chosen pivot
-	void sort::quicksort(int* a, int n)
-	{
-		return sort::quick(a, 0, n - 1);
-	}
+    // insertion sort
+    void sort::insertion(int* a, int n) {
+        for (int i = 1; i < n; i++) {
+            int key = a[i];
+            int j = i - 1;
+            while (j >= 0 && a[j] > key) {
+                a[j + 1] = a[j];
+                j--;
+            }
+            a[j + 1] = key;
+        }
+    }
 
-	// selection sort
-	void sort::selection(int* a, int n) {
-		for (int i = 0; i < n; i++) {
-			// compute min index
-			int minidx = i;
-			for (int j = i; j < n; j++)
-				if (a[j] < a[minidx])
-					minidx = j;
+    // quicksort, with chosen pivot
+    void sort::quicksort(int* a, int n) {
+        return sort::quick(a, 0, n - 1);
+    }
 
-			// swap
-			int temp = a[i];
-			a[i] = a[minidx];
-			a[minidx] = temp;
-		}
-	}
+    // selection sort
+    void sort::selection(int* a, int n) {
+        for (int i = 0; i < n; i++) {
+            // compute min index
+            int minidx = i;
+            for (int j = i; j < n; j++)
+                if (a[j] < a[minidx])
+                    minidx = j;
 
-	// ##### SORT CLASS -- PRIVATE METHODS
+            // swap
+            int temp = a[i];
+            a[i] = a[minidx];
+            a[minidx] = temp;
+        }
+    }
 
-	// helper to implement the recurrence for quicksort
-	void sort::quick(int* a, int l, int r)
-	{
-		if (l < r) {
-			int pivot = sort::partition(a, l, r);
-			quick(a, l, pivot - 1);
-			quick(a, pivot + 1, r);
-		}
-	}
+    // ##### SORT CLASS -- PRIVATE METHODS
 
-	// computes the partition
-	int sort::partition(int* a, int l, int r)
-	{
-		while (l < r) {
-			// adjust right
-			while (l < r && a[l] <= a[r])
-				r--;
-			if (l < r) {
-				// swap elements at l & r
-				int temp = a[l];
-				a[l] = a[r];
-				a[r] = a[l];
-			}
+    // helper to implement the recurrence for quicksort
+    void sort::quick(int* a, int l, int r) {
+        if (l < r) {
+            int pivot = sort::partition(a, l, r);
+            quick(a, l, pivot - 1);
+            quick(a, pivot + 1, r);
+        }
+    }
 
-			// adjust left
-			while (l < r && a[l] <= a[r])
-				l++;
+    // computes the partition
+    int sort::partition(int* a, int l, int r) {
+        while (l < r) {
+            // adjust right
+            while (l < r && a[l] <= a[r])
+                r--;
+            if (l < r) {
+                // swap elements at l & r
+                int temp = a[l];
+                a[l] = a[r];
+                a[r] = a[l];
+            }
 
-			if (l < r) {
-				// swap again
-				int temp = a[l];
-				a[l] = a[r];
-				a[r] = a[l];
-				r--;
-			}
-		}
-		return l;
-	}
+            // adjust left
+            while (l < r && a[l] <= a[r])
+                l++;
 
-	// #################### UTILS CLASS #################
-	// ### utils class definitions
+            if (l < r) {
+                // swap again
+                int temp = a[l];
+                a[l] = a[r];
+                a[r] = a[l];
+                r--;
+            }
+        }
+        return l;
+    }
 
-	// finds the max of an array
-	int utils::max(int* a, int n)
-	{
-		int max = a[0];
-		for (int i = 1; i < n; i++)
-			if (max < a[i])
-				max = a[i];
-		return max;
-	}
+    // #################### UTILS CLASS #################
+    // ### utils class definitions
 
-	// checks an array. true if sorted. false otherwise.
-	bool utils::is_sorted(int* a, int n)
-	{
-		for (int i = 0; i < n - 1; i++)
-			if (a[i] > a[i + 1])
-				return false;
-		return true;
-	}
+    // finds the max of an array
+    int utils::max(int* a, int n) {
+        int max = a[0];
+        for (int i = 1; i < n; i++)
+            if (max < a[i])
+                max = a[i];
+        return max;
+    }
 
-	// performs a deep copy of the array
-	int* utils::copy(int* a, int n)
-	{
-		int* b = new int[n];
-		for (int i = 0; i < n; i++)
-			b[i] = a[i];
-		return b;
-	}
+    // checks an array. true if sorted. false otherwise.
+    bool utils::is_sorted(int* a, int n) {
+        for (int i = 0; i < n - 1; i++)
+            if (a[i] > a[i + 1])
+                return false;
+        return true;
+    }
+
+    // performs a deep copy of the array
+    int* utils::copy(int* a, int n) {
+        int* b = new int[n];
+        for (int i = 0; i < n; i++)
+            b[i] = a[i];
+        return b;
+    }
 
 }
